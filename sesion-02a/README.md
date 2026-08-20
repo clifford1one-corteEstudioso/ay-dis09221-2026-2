@@ -98,7 +98,7 @@ una cascada de leds. Energizado por un diodo que genera voltaje mediante calor.
 
 Javiera Corral, Javiera Ortega
 
-- **Música**
+- **Estruendo**
 
 Evidenciar el sonido. Un feedback que te ayude a saber si el sonido es real o está en tu cabeza.
 

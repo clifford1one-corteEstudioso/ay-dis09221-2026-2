@@ -41,7 +41,7 @@ ayudante: Santiago Gaete
 13. [Ariad G.](https://miro.com/app/board/uXjVGxEkqTc=/?share_link_id=693331911361)
 14. [Florencia G.]()
 15. [Bruno J.]()
-16. [Skarlette L.]()
+16. [Skarlette L.](https://app.notion.com/p/Taller-IV-Interacci-n-Digital-2026-2-3b94d2fe85d08072a308ee5f3d6ad21b?source=copy_link)
 17. [Sebastián M.]()
 18. [Franco M.]()
 19. [Josefa Navas.]()
