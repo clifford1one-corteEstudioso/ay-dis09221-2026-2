@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Lámina A4 — Encargo 05</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   LÁMINA A4 — Taller de Interacción Digital (dis09221)
+   Editar SOLO el contenido dentro de <body>.
+   Imprimir: Ctrl/Cmd + P  →  Destino "Guardar como PDF"
+             Márgenes: Ninguno · Escala: 100% · Sin encabezados
+   ========================================================= */
+
+@page { size: A4 portrait; margin: 0; }
+
+:root{
+  --tinta:#111111;   /* texto principal */
+  --gris:#6b6b6b;    /* texto secundario */
+  --linea:#d8d8d8;   /* filetes */
+  --papel:#ffffff;
+}
+
+*{ box-sizing:border-box; margin:0; padding:0; }
+
+body{
+  font-family:"Inter","Helvetica Neue",Arial,sans-serif;
+  color:var(--tinta);
+  background:#e9e9e9;               /* solo en pantalla */
+  display:flex; justify-content:center; padding:24px 0;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ---------- Hoja ---------- */
+.lamina{
+  width:210mm; height:297mm;
+  padding:15mm 16mm 13mm;
+  background:var(--papel);
+  display:flex; flex-direction:column;
+  box-shadow:0 2px 18px rgba(0,0,0,.18);   /* solo en pantalla */
+}
+
+/* ---------- Encabezado ---------- */
+.top{
+  display:flex; justify-content:space-between; align-items:baseline; gap:6mm;
+  border-bottom:.6pt solid var(--tinta);
+  padding-bottom:2.5mm;
+  font-size:7.5pt; letter-spacing:.06em; text-transform:uppercase; color:var(--gris);
+}
+.top strong{ color:var(--tinta); font-weight:600; }
+
+/* ---------- Título ---------- */
+.titulo{ margin-top:7mm; }
+.titulo h1{ font-size:26pt; font-weight:600; line-height:1.05; letter-spacing:-.02em; }
+.titulo p{
+  margin-top:2.5mm; font-size:10pt; font-weight:300; line-height:1.4;
+  color:var(--gris); max-width:135mm;
+}
+
+/* ---------- Imagen del prototipo ---------- */
+.prototipo{ margin-top:7mm; flex:1 1 auto; min-height:76mm; display:flex; flex-direction:column; }
+.prototipo .marco{
+  position:relative; flex:1; overflow:hidden; background:#f4f4f4;
+  border:.5pt solid var(--linea);
+  display:flex; align-items:center; justify-content:center;
+}
+.prototipo .vacio{
+  position:absolute; font-size:8pt; color:#a8a8a8; letter-spacing:.08em;
+  font-family:ui-monospace,monospace;
+}
+.prototipo img{ width:100%; height:100%; object-fit:cover; display:block; position:relative; }
+.prototipo figcaption{ margin-top:1.8mm; font-size:7pt; color:var(--gris); letter-spacing:.02em; }
+
+/* ---------- Tres párrafos ---------- */
+.textos{
+  margin-top:7mm; padding-top:4mm;
+  border-top:.5pt solid var(--linea);
+  display:grid; grid-template-columns:repeat(3,1fr); gap:7mm;
+}
+.textos h2{
+  font-size:7pt; font-weight:600; letter-spacing:.12em; text-transform:uppercase; margin-bottom:2mm;
+}
+.textos p{ font-size:8.4pt; font-weight:300; line-height:1.45; text-align:justify; hyphens:auto; }
+
+/* ---------- Pie: ODS + referentes ---------- */
+.pie{
+  margin-top:6mm; padding-top:4mm;
+  border-top:.5pt solid var(--linea);
+  display:grid; grid-template-columns:1fr 1.2fr; gap:8mm;
+}
+.pie h2{
+  font-size:7pt; font-weight:600; letter-spacing:.12em; text-transform:uppercase; margin-bottom:2.5mm;
+}
+
+/* ODS */
+.ods{ display:flex; flex-direction:column; gap:2mm; }
+.ods .item{ display:flex; align-items:center; gap:2.5mm; }
+.ods .num{
+  width:7mm; height:7mm; flex:none;
+  display:flex; align-items:center; justify-content:center;
+  color:#fff; font-size:8pt; font-weight:700;
+  -webkit-print-color-adjust:exact; print-color-adjust:exact;
+}
+.ods .nom{ font-size:7.6pt; font-weight:400; line-height:1.2; }
+
+/* Referentes */
+.referentes ol{ list-style:none; counter-reset:r; }
+.referentes li{
+  counter-increment:r; font-size:7.4pt; font-weight:300; line-height:1.35;
+  padding-left:5mm; margin-bottom:1.6mm; position:relative;
+}
+.referentes li::before{
+  content:counter(r); position:absolute; left:0; top:0; font-size:6.5pt; color:var(--gris);
+}
+.referentes em{ font-style:italic; }
+.referentes span{ color:var(--gris); }
+
+/* ---------- Impresión ---------- */
+@media print{
+  body{ background:none; padding:0; display:block; }
+  .lamina{ box-shadow:none; }
+  .ayuda{ display:none; }
+}
+.ayuda{
+  position:fixed; left:12px; bottom:12px; z-index:9;
+  font-size:11px; color:#555; background:#fff; border:1px solid #ccc;
+  padding:6px 10px; border-radius:4px; font-family:ui-monospace,monospace;
+}
+</style>
+</head>
+<body>
+
+<div class="lamina">
+
+  <!-- ============ ENCABEZADO ============ -->
+  <header class="top">
+    <div><strong>Nombre Apellido</strong></div>
+    <div>Taller de Interacción Digital · dis09221</div>
+    <div>Encargo 05 · 2026</div>
+  </header>
+
+  <!-- ============ TÍTULO Y BAJADA ============ -->
+  <div class="titulo">
+    <h1>Nombre del proyecto</h1>
+    <p>Una línea que sintetiza qué es el proyecto y para quién: artefacto o interfaz +
+       usuario + situación de uso. Máximo dos líneas.</p>
+  </div>
+
+  <!-- ============ IMAGEN DEL PROTOTIPO ============ -->
+  <!-- Reemplazar prototipo.jpg por la foto del montaje formal.
+       Ideal: horizontal, mínimo 2000 px de ancho, fondo neutro. -->
+  <figure class="prototipo">
+    <div class="marco">
+      <span class="vacio">prototipo.jpg</span>
+      <img src="prototipo.jpg" alt="Fotografía del prototipo formal en uso"
+           onerror="this.remove()">
+    </div>
+    <figcaption>Fig. 1 — Prototipo formal en situación de uso.</figcaption>
+  </figure>
+
+  <!-- ============ TRES PÁRRAFOS ============ -->
+  <section class="textos">
+    <div>
+      <h2>Descripción</h2>
+      <p>Qué es el proyecto. Describir el objeto o interfaz, sus partes y qué ocurre cuando
+        alguien lo usa. En presente y en tercera persona. Alrededor de 70 palabras:
+        privilegiar precisión por sobre adjetivos.</p>
+    </div>
+    <div>
+      <h2>Fundamentos</h2>
+      <p>Por qué existe. Problema detectado, usuario y contexto, y la decisión conceptual que
+        articula la propuesta. Conectar con el marco del taller y con los referentes citados
+        abajo. Alrededor de 70 palabras.</p>
+    </div>
+    <div>
+      <h2>Proceso</h2>
+      <p>Cómo se hizo. Etapas del trabajo, materiales, técnicas y herramientas —maqueta,
+        electrónica, software, testeo con usuarios— y qué cambió entre una iteración y otra.
+        Alrededor de 70 palabras.</p>
+    </div>
+  </section>
+
+  <!-- ============ PIE: ODS + REFERENTES ============ -->
+  <footer class="pie">
+
+    <!-- Dejar solo los ODS que el proyecto aborda (1 a 3 como máximo).
+         Colores oficiales al final del archivo. -->
+    <div>
+      <h2>Objetivos de Desarrollo Sostenible</h2>
+      <div class="ods">
+        <div class="item">
+          <div class="num" style="background:#26BDE2">6</div>
+          <div class="nom">Agua limpia y saneamiento</div>
+        </div>
+        <div class="item">
+          <div class="num" style="background:#FD9D24">11</div>
+          <div class="nom">Ciudades y comunidades sostenibles</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="referentes">
+      <h2>Referentes</h2>
+      <ol>
+        <li>Apellido, N. (año). <em>Título de la obra o proyecto</em>. <span>Medio, lugar.</span></li>
+        <li>Estudio o autor (año). <em>Nombre del proyecto</em>. <span>enlace.cl</span></li>
+        <li>Apellido, N. (año). <em>Título del texto</em>. <span>Editorial.</span></li>
+      </ol>
+    </div>
+
+  </footer>
+</div>
+
+<div class="ayuda">Ctrl/Cmd + P → PDF · márgenes: ninguno · escala 100%</div>
+
+<!--
+=====================================================================
+COLORES OFICIALES ODS  (usar en style="background:#XXXXXX")
+ 1 #E5243B Fin de la pobreza
+ 2 #DDA63A Hambre cero
+ 3 #4C9F38 Salud y bienestar
+ 4 #C5192D Educación de calidad
+ 5 #FF3A21 Igualdad de género
+ 6 #26BDE2 Agua limpia y saneamiento
+ 7 #FCC30B Energía asequible y no contaminante
+ 8 #A21942 Trabajo decente y crecimiento económico
+ 9 #FD6925 Industria, innovación e infraestructura
+10 #DD1367 Reducción de las desigualdades
+11 #FD9D24 Ciudades y comunidades sostenibles
+12 #BF8B2E Producción y consumo responsables
+13 #3F7E44 Acción por el clima
+14 #0A97D9 Vida submarina
+15 #56C02B Vida de ecosistemas terrestres
+16 #00689D Paz, justicia e instituciones sólidas
+17 #19486A Alianzas para lograr los objetivos
+=====================================================================
+-->
+</body>
+</html>

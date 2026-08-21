@@ -222,9 +222,11 @@ circuitos, input procesamiento y output, energía
 
 ### encargo lunes
 
-lámina A4
+- lámina A4
+- proyecto update
+- ya no hay q traer los materiales aún(lunes 31)
 
-## refernetes y páginas relevantes
+## referentes y páginas relevantes
 
 - [Drawidio](https://drawdio.com/)
 - [Daniel Rozin](https://www.smoothware.com/danny/index.html)
