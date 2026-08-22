@@ -1,6 +1,4 @@
-# encargo-02
-
-## de artefacto a prototipo
+# encargo-02: de artefacto a prototipo
 
 entrega el 20 de agosto a las 14:00
 
@@ -13,3 +11,7 @@ Preparar una presentación de 2 minutos que conste de 3 diapositivas:
 2. por qué(inspiración, referencias bibliográficas)
 
 3. cómo(diagramas, imágenes, input->procesamiento->output)
+
+## entrega
+
+jueves 20 de agosto a las 14:00hrs. Llevar prototipo físico, subir presentación a canvas.
