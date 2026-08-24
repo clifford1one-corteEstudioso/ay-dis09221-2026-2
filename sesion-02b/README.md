@@ -77,7 +77,7 @@ teclado musical
 | presentación | 0.8 | ojo con la ortografía, muy buenos los diagramas |
 | discurso | 1 | se nota la preparacíon |
 
-### CONTACTO
+### CONTACTO - irrupción
 
 Valentina Álvarez, Sebastián Mejías
 
@@ -98,7 +98,7 @@ comentario: el circuito logra un objetivo llamativo y complejo, la conceptualiza
 
 Accesorio interactivo que refleja la mente humana. Un artefacto sonoro totalmente expuesto
 que refleja la complejidad, realidad y vulnerabilidad de nuestras mentes y de cómo pensamos.
-El movimiento natural de cubrirse el pecho, cuando sucede, esto se tapa un LDR y el circuito emite un sonido, que es una representación de tu ansiedad. 
+El movimiento natural de cubrirse el pecho, cuando sucede, esto se tapa un LDR y el circuito emite un sonido, que es una representación de tu ansiedad.
 
 | ítem | puntaje | comentario |
 | - | - | - |
