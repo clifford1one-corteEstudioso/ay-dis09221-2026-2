@@ -24,3 +24,7 @@
 ## cátedra
 
 ### microcontroladores
+
+hablamos sobre microcontroladores, electricidad y programación.
+
+Luego tuvimos una actividad práctica donde los estudiantes soldaron cables a una tira LED.
