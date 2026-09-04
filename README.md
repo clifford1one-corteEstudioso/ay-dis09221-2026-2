@@ -49,8 +49,8 @@ ayudante: Santiago Gaete
 21. [Camila R.](
 22. [Faustina R.](https://app.notion.com/p/bit-cora-taller-IV-b7ea753504a6825993f7011fca9002ba?source=copy_link)
 23. [Amanda S.](https://app.notion.com/p/Bit-cora-IV-334dc5378d1881639982caf8864e37a8?source=copy_link)
-24. [Maximiliano T.](
+24. [Maximiliano T.](https://www.tumblr.com/blog/maxisbitacora)
 25. [Catalina T.](https://github.com/catalinatoledo-dgn/Taller-Interacci-n-Digital-/tree/main)
 26. [Aileen V.](https://miro.com/welcomeonboard/bUw0cXRwakN1bnAxZW9zRkJqcGR3ODJnRWlpVG9FRStSbHNLVUZ1S2p1NFlaT3Y4bFk5dGh2ZG1vemdMbWY1c2lQTzRkY1FMOFluT1I3UXlFTlQydDkvRnBmTEdWN3IvWGpOdFlSZHM1STB3bUFkQVVjZHExTUhxT08vbjdVblR3VHhHVHd5UWtSM1BidUtUYmxycDRnPT0hdjE=?share_link_id=949421458003)
 27. [Amanda V.](https://www.notion.so/Taller-IV-3b9636495ca880b89243d260fcc391e8?source=copy_link)
-28. [Javiera Z.](
+28. [Javiera Z.](https://docs.google.com/document/d/1bVjVlUUMR3Dqm6HYrwsgiN916x_NSzOgANh-eWAh_H4/edit?usp=sharing)
