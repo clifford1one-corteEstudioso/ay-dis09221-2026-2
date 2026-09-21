@@ -24,8 +24,10 @@ a las 10 entrega [encargo-09](../encargos/encargo-09/)
 
 ## G10: Florencia Alvarado Max Tasso
 
-## G11: Bruno Jara Florencaa Guzmán
+## G11: Bruno Jara Florencia Guzmán
 
 ## G12: Sebastián Mejías Monserrat Chávez
 
 ## G13: Skarlette Legal Catalina Toledo
+
+## Amanda Severino Aileen Vargas
