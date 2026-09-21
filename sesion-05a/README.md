@@ -56,7 +56,7 @@ comentario: si les gustan la idea de los árboles de pandora, falta un lemento q
 
 ### grupo-07: Presión Contenida
 
-- monserrat chavez, sebastian mejias
+- monserrat chavez, sebastian mejías
 
 ### grupo-08: Ilusión / Ilusión de Libertad
 
