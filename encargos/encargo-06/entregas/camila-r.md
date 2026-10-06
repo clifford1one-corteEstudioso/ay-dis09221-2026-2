@@ -1,0 +1,17 @@
+# Los algoritmos también pueden equivocarse
+
+Una de las cosas que más me llamó la atención del primer capítulo de *Weapons of Math Destruction* es la idea de que un algoritmo puede parecer totalmente objetivo, pero en realidad puede tener muchos errores o prejuicios. Generalmente uno piensa que, si una decisión la toma un sistema basado en datos, debería ser más justa porque no depende de emociones ni opiniones personales. Pero el libro muestra que no siempre funciona así.
+
+Al final, los algoritmos son creados por personas. Son ellas las que deciden qué datos utilizar, qué información consideran importante y qué significa obtener un resultado “bueno” o “malo”. Entonces, aunque el resultado final aparezca como un número o un puntaje, detrás de ese resultado hay muchas decisiones humanas. Eso me pareció interesante porque cambia un poco la idea de que las matemáticas siempre son neutrales. La autora incluso plantea que los modelos pueden reflejar las opiniones y prioridades de quienes los diseñan.
+
+Un ejemplo que me pareció bastante fuerte es el de los sistemas que intentan predecir si una persona que cometió un delito podría volver a hacerlo. En principio suena como algo útil, porque podría ayudar a que las decisiones no dependan solamente de lo que piense un juez. El problema aparece cuando uno revisa qué información considera el sistema.
+
+Estos modelos pueden tomar en cuenta cosas como si la persona tuvo encuentros anteriores con la policía, si familiares o amigos tienen antecedentes o el tipo de lugar donde creció. El problema es que una persona que vive en un barrio donde hay mucha más presencia policial probablemente tenga más posibilidades de haber sido controlada o detenida alguna vez, incluso sin haber cometido un delito grave. Entonces el sistema puede terminar considerando a alguien más peligroso por su contexto y no solamente por lo que realmente hizo.
+
+Lo que encuentro más preocupante de esto es que el prejuicio puede quedar escondido detrás de una apariencia de objetividad. Quizás el algoritmo nunca pregunta directamente por la raza o la situación económica de una persona, pero puede utilizar otros datos que indirectamente están relacionados con eso. Al final, una decisión puede terminar siendo discriminatoria, aunque visualmente se vea como algo súper técnico y preciso.
+
+También me pareció interesante el círculo que se puede generar. Si el sistema clasifica a alguien como una persona de “alto riesgo”, puede terminar recibiendo una condena mayor. Después, cuando sale de prisión, probablemente tenga más dificultades para conseguir trabajo o volver a integrarse. Si esa persona vuelve a cometer un delito, el algoritmo parece haber tenido razón, aunque el mismo sistema ayudó a generar una situación más difícil para esa persona.
+
+Desde el diseño también creo que este tema es importante, porque muchas veces diseñamos sistemas, interfaces o experiencias donde el usuario simplemente recibe una decisión sin saber muy bien de dónde salió. No basta con que algo funcione técnicamente; también hay que pensar si es comprensible, justo y si la persona tiene alguna posibilidad de cuestionarlo.
+
+Después de leer esta parte, me quedó dando vueltas una pregunta: ¿deberíamos confiar en algo solamente porque está basado en datos? Creo que no. Los datos pueden ser muy útiles, pero hay que entender cómo se consiguieron, qué se está midiendo y qué información se está dejando fuera. Un algoritmo puede ayudarnos a tomar decisiones, pero no significa que automáticamente tenga la razón.

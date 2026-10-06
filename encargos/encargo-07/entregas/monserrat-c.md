@@ -1,0 +1,9 @@
+Al principio suena súper raro esto de ponerle "temperatura" a la forma en que nos comunicamos, pero llevándolo a lo visual, tiene todo el sentido del mundo. McLuhan dice básicamente que un medio caliente es aquel que te da toda la información junta, súper detallada. “Un medio caliente permite menos participación que uno frío: la lectura deja menos lugar a la participación que un seminario, y un libro menos que un diálogo.
+
+Ello explica por qué una experiencia intensa ha de ser «olvidada», «censurada» y reducida a un estado muy frío antes de poder ser «aprendida» o asimilada.”
+
+No tienes que esforzarte nada para entenderlo porque te lo entregan todo masticado. Pienso en una fotografía hiperrealista o en esos afiches que están tan llenos de texto y colores que te dicen exactamente qué pensar. Tú solo los miras, recibes la información de golpe y pasas a otra cosa. Eres un espectador totalmente pasivo.
+
+Por otro lado están los medios fríos, que son mis favoritos ahora. Estos te dan mucha menos información, son como un borrador o un esquema, y por lo mismo, te obligan a llenar los huecos. Y aquí está la magia que me hizo clic: los medios fríos te exigen participar. Es como cuando vemos un logo minimalista, una ilustración de trazos simples o interactuamos con una app que tiene mucho espacio en blanco. Como el diseño no te explica todo a gritos, tu cerebro tiene que involucrarse para completar el rompecabezas.
+
+Si dejo que el diseño respire, si sugiero en lugar de mostrar todo literalmente, invito a quien lo mira a ser parte de la obra. Ya no solo está consumiendo mi diseño, está interactuando mentalmente con él. Al final, creo que nuestro trabajo no es bombardear a la gente con datos perfectos, sino saber qué tanta información quieren quitar para que el otro termine de construir el mensaje.
