@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base target="_top">
+  <meta charset="utf-8">
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 480px; margin: 40px auto; padding: 0 16px; color: #222; }
+    h1 { font-size: 1.5rem; }
+    label { display: block; margin-top: 18px; font-weight: 600; }
+    small { color: #666; font-weight: normal; }
+    input { width: 100%; box-sizing: border-box; padding: 10px; margin-top: 6px; font-size: 1rem; border: 1px solid #bbb; border-radius: 6px; }
+    button { margin-top: 24px; width: 100%; padding: 12px; font-size: 1rem; border: 0; border-radius: 6px; background: #222; color: #fff; cursor: pointer; }
+    button:disabled { opacity: .5; }
+    #mensaje { margin-top: 16px; }
+  </style>
+</head>
+<body>
+  <h1>¿Qué tema te gusta?</h1>
+  <p>Con esto vamos a armar grupos de trabajo por afinidad.</p>
+
+  <form id="form">
+    <label>Nombre y apellido
+      <input id="nombre" required autocomplete="name">
+    </label>
+    <p><small>Escribe 3 temas que te gusten. Si ves uno que ya escribió alguien y te calza, elígelo.</small></p>
+    <label>Tema 1
+      <input class="tema" list="temas" required placeholder="ej: videojuegos retro">
+    </label>
+    <label>Tema 2
+      <input class="tema" list="temas" required placeholder="ej: ilustración digital">
+    </label>
+    <label>Tema 3
+      <input class="tema" list="temas" required placeholder="ej: música electrónica">
+    </label>
+    <datalist id="temas"></datalist>
+    <button id="enviar" type="submit">Enviar</button>
+  </form>
+  <p id="mensaje"></p>
+
+  <script>
+    google.script.run.withSuccessHandler(temas => {
+      document.getElementById('temas').innerHTML =
+        temas.map(t => `<option value="${t.replace(/"/g, '&quot;')}">`).join('');
+    }).obtenerTemas();
+
+    document.getElementById('form').addEventListener('submit', e => {
+      e.preventDefault();
+      const boton = document.getElementById('enviar');
+      const mensaje = document.getElementById('mensaje');
+      boton.disabled = true;
+      mensaje.textContent = 'Enviando…';
+      google.script.run
+        .withSuccessHandler(estado => {
+          mensaje.textContent = estado === 'actualizada'
+            ? '¡Listo! Actualizamos tu respuesta anterior.'
+            : '¡Listo! Tu respuesta quedó guardada.';
+          boton.disabled = false;
+        })
+        .withFailureHandler(err => {
+          mensaje.textContent = 'Error: ' + err.message;
+          boton.disabled = false;
+        })
+        .guardarRespuesta({
+          nombre: document.getElementById('nombre').value,
+          temas: [...document.querySelectorAll('.tema')].map(i => i.value),
+        });
+    });
+  </script>
+</body>
+</html>
