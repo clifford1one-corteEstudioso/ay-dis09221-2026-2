@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="279.4mm" height="431.8mm" viewBox="0 0 279.4 431.8">
+<rect id="fondo" width="279.4" height="431.8" fill="#fff"/>
+<g id="encabezado">
+<text x="20.00" y="22.50" font-family="Roboto" font-weight="600" font-size="3.881" text-anchor="start" fill="#000">Nombre Apellido</text>
+<text x="20.00" y="29.00" font-family="Roboto" font-weight="600" font-size="3.881" text-anchor="start" fill="#000">Nombre Apellido</text>
+<text x="139.70" y="22.50" font-family="Roboto" font-weight="300" font-size="3.881" text-anchor="middle" fill="#000">Taller de Interacción Digital — encargo-05</text>
+<text x="139.70" y="29.00" font-family="Roboto" font-weight="300" font-size="3.881" text-anchor="middle" fill="#000">DIS09221_C07 — 2026-08-27</text>
+<text x="259.40" y="22.50" font-family="Roboto" font-weight="300" font-size="3.881" text-anchor="end" fill="#000">Carolina Pino, Felipe Roa</text>
+<text x="259.40" y="29.00" font-family="Roboto" font-weight="300" font-size="3.881" text-anchor="end" fill="#000">&amp;  Santiago Gaete</text>
+<line x1="20" y1="33" x2="259.4" y2="33" stroke="#000" stroke-width=".4"/>
+</g>
+<g id="titulo-seccion">
+<text x="20.00" y="56.00" font-family="Roboto" font-weight="500" font-size="14.112" text-anchor="start" fill="#000">Proceso</text>
+<text x="20.00" y="64.50" font-family="Roboto" font-weight="200" font-size="4.939" text-anchor="start" fill="#000">Por qué: investigación, exploración y validación.</text>
+</g>
+<g id="img-investigacion">
+<rect x="20.00" y="72.00" width="157.60" height="98.00" fill="#c8c8c8"/>
+<text x="98.80" y="124.00" font-family="Roboto" font-weight="200" font-size="9.267" text-anchor="middle" fill="#000">[IMG]</text>
+<text x="20.00" y="174.50" font-family="Roboto" font-weight="400" font-size="3.175" text-anchor="start" fill="#000">Fig. 3 — Investigación / referente.</text>
+</g>
+<g id="txt-investigacion"><text x="183.60" y="76.00" font-family="Roboto" font-weight="600" font-size="3.881" text-anchor="start" fill="#000">01 — Investigación</text><g id="txt-investigacion-txt">
+<text x="183.60" y="83.00" font-family="Roboto" font-weight="400" font-size="3.881" text-anchor="start" fill="#000">Lorem ipsum dolor sit amet,</text>
+<text x="183.60" y="88.43" font-family="Roboto" font-weight="400" font-size="3.881" text-anchor="start" fill="#000">consectetur adipiscing elit, sed do</text>
+<text x="183.60" y="93.87" font-family="Roboto" font-weight="400" font-size="3.881" text-anchor="start" fill="#000">eiusmod tempor incididunt ut labore</text>
+<text x="183.60" y="99.30" font-family="Roboto" font-weight="400" font-size="3.881" text-anchor="start" fill="#000">et dolore magna aliqua. Ut enim ad</text>
+<text x="183.60" y="104.73" font-family="Roboto" font-weight="400" font-size="3.881" text-anchor="start" fill="#000">minim veniam, quis nostrud</text>
+<text x="183.60" y="110.17" font-family="Roboto" font-weight="400" font-size="3.881" text-anchor="start" fill="#000">exercitation ullamco laboris nisi</text>
+<text x="183.60" y="115.60" font-family="Roboto" font-weight="400" font-size="3.881" text-anchor="start" fill="#000">ut aliquip ex ea commodo consequat.</text>
+<text x="183.60" y="121.03" font-family="Roboto" font-weight="400" font-size="3.881" text-anchor="start" fill="#000">Duis aute irure dolor in</text>
+<text x="183.60" y="126.46" font-family="Roboto" font-weight="400" font-size="3.881" text-anchor="start" fill="#000">reprehenderit in voluptate velit</text>
+<text x="183.60" y="131.90" font-family="Roboto" font-weight="400" font-size="3.881" text-anchor="start" fill="#000">esse.</text>
+</g></g>
+<g id="txt-exploracion"><text x="20.00" y="184.00" font-family="Roboto" font-weight="600" font-size="3.881" text-anchor="start" fill="#000">02 — Exploración</text><g id="txt-exploracion-txt">
+<text x="20.00" y="191.00" font-family="Roboto" font-weight="400" font-size="3.881" text-anchor="start" fill="#000">Lorem ipsum dolor sit amet,</text>
+<text x="20.00" y="196.43" font-family="Roboto" font-weight="400" font-size="3.881" text-anchor="start" fill="#000">consectetur adipiscing elit, sed do</text>
+<text x="20.00" y="201.87" font-family="Roboto" font-weight="400" font-size="3.881" text-anchor="start" fill="#000">eiusmod tempor incididunt ut labore</text>
+<text x="20.00" y="207.30" font-family="Roboto" font-weight="400" font-size="3.881" text-anchor="start" fill="#000">et dolore magna aliqua. Ut enim ad</text>
+<text x="20.00" y="212.73" font-family="Roboto" font-weight="400" font-size="3.881" text-anchor="start" fill="#000">minim veniam, quis nostrud</text>
+<text x="20.00" y="218.17" font-family="Roboto" font-weight="400" font-size="3.881" text-anchor="start" fill="#000">exercitation ullamco laboris nisi</text>
+<text x="20.00" y="223.60" font-family="Roboto" font-weight="400" font-size="3.881" text-anchor="start" fill="#000">ut aliquip ex ea commodo consequat.</text>
+<text x="20.00" y="229.03" font-family="Roboto" font-weight="400" font-size="3.881" text-anchor="start" fill="#000">Duis aute irure dolor in</text>
+<text x="20.00" y="234.46" font-family="Roboto" font-weight="400" font-size="3.881" text-anchor="start" fill="#000">reprehenderit in voluptate velit</text>
+<text x="20.00" y="239.90" font-family="Roboto" font-weight="400" font-size="3.881" text-anchor="start" fill="#000">esse.</text>
+</g></g>
+<g id="img-exploracion">
+<rect x="101.80" y="180.00" width="157.60" height="98.00" fill="#c8c8c8"/>
+<text x="180.60" y="232.00" font-family="Roboto" font-weight="200" font-size="9.267" text-anchor="middle" fill="#000">[IMG]</text>
+<text x="101.80" y="282.50" font-family="Roboto" font-weight="400" font-size="3.175" text-anchor="start" fill="#000">Fig. 4 — Bocetos / maquetas.</text>
+</g>
+<g id="img-prototipo">
+<rect x="20.00" y="288.00" width="75.80" height="98.00" fill="#c8c8c8"/>
+<text x="57.90" y="340.00" font-family="Roboto" font-weight="200" font-size="4.457" text-anchor="middle" fill="#000">[IMG]</text>
+<text x="20.00" y="390.50" font-family="Roboto" font-weight="400" font-size="3.175" text-anchor="start" fill="#000">Fig. 5 — Prototipo.</text>
+</g>
+<g id="txt-validacion"><text x="101.80" y="292.00" font-family="Roboto" font-weight="600" font-size="3.881" text-anchor="start" fill="#000">03 — Validación</text><g id="txt-validacion-txt">
+<text x="101.80" y="299.00" font-family="Roboto" font-weight="400" font-size="3.881" text-anchor="start" fill="#000">Lorem ipsum dolor sit amet,</text>
+<text x="101.80" y="304.43" font-family="Roboto" font-weight="400" font-size="3.881" text-anchor="start" fill="#000">consectetur adipiscing elit, sed do</text>
+<text x="101.80" y="309.87" font-family="Roboto" font-weight="400" font-size="3.881" text-anchor="start" fill="#000">eiusmod tempor incididunt ut labore</text>
+<text x="101.80" y="315.30" font-family="Roboto" font-weight="400" font-size="3.881" text-anchor="start" fill="#000">et dolore magna aliqua. Ut enim ad</text>
+<text x="101.80" y="320.73" font-family="Roboto" font-weight="400" font-size="3.881" text-anchor="start" fill="#000">minim veniam, quis nostrud</text>
+<text x="101.80" y="326.17" font-family="Roboto" font-weight="400" font-size="3.881" text-anchor="start" fill="#000">exercitation ullamco laboris nisi</text>
+<text x="101.80" y="331.60" font-family="Roboto" font-weight="400" font-size="3.881" text-anchor="start" fill="#000">ut aliquip ex ea commodo consequat.</text>
+<text x="101.80" y="337.03" font-family="Roboto" font-weight="400" font-size="3.881" text-anchor="start" fill="#000">Duis aute irure dolor in</text>
+<text x="101.80" y="342.46" font-family="Roboto" font-weight="400" font-size="3.881" text-anchor="start" fill="#000">reprehenderit in voluptate velit</text>
+<text x="101.80" y="347.90" font-family="Roboto" font-weight="400" font-size="3.881" text-anchor="start" fill="#000">esse.</text>
+</g></g>
+<g id="img-testeo">
+<rect x="183.60" y="288.00" width="75.80" height="98.00" fill="#c8c8c8"/>
+<text x="221.50" y="340.00" font-family="Roboto" font-weight="200" font-size="4.457" text-anchor="middle" fill="#000">[IMG]</text>
+<text x="183.60" y="390.50" font-family="Roboto" font-weight="400" font-size="3.175" text-anchor="start" fill="#000">Fig. 6 — Testeo.</text>
+</g>
+<g id="pie-de-pagina">
+<line x1="20" y1="414" x2="259.4" y2="414" stroke="#000" stroke-width=".4"/>
+<text x="20.00" y="420.50" font-family="Roboto" font-weight="600" font-size="3.881" text-anchor="start" fill="#000">03 / 04</text>
+<text x="38.00" y="420.50" font-family="Roboto" font-weight="300" font-size="3.881" text-anchor="start" fill="#000">POR QUÉ</text>
+<text x="259.40" y="420.50" font-family="Roboto" font-weight="300" font-size="3.881" text-anchor="end" fill="#000">Nombre Proyecto</text>
+</g>
+</svg>

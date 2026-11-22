@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="279.4mm" height="431.8mm" viewBox="0 0 279.4 431.8">
+<rect id="fondo" width="279.4" height="431.8" fill="#fff"/>
+<g id="encabezado">
+<text x="20.00" y="22.50" font-family="Roboto" font-weight="600" font-size="3.881" text-anchor="start" fill="#000">Nombre Apellido</text>
+<text x="20.00" y="29.00" font-family="Roboto" font-weight="600" font-size="3.881" text-anchor="start" fill="#000">Nombre Apellido</text>
+<text x="139.70" y="22.50" font-family="Roboto" font-weight="300" font-size="3.881" text-anchor="middle" fill="#000">Taller de Interacción Digital — encargo-05</text>
+<text x="139.70" y="29.00" font-family="Roboto" font-weight="300" font-size="3.881" text-anchor="middle" fill="#000">DIS09221_C07 — 2026-08-27</text>
+<text x="259.40" y="22.50" font-family="Roboto" font-weight="300" font-size="3.881" text-anchor="end" fill="#000">Carolina Pino, Felipe Roa</text>
+<text x="259.40" y="29.00" font-family="Roboto" font-weight="300" font-size="3.881" text-anchor="end" fill="#000">&amp;  Santiago Gaete</text>
+<line x1="20" y1="33" x2="259.4" y2="33" stroke="#000" stroke-width=".4"/>
+</g>
+<g id="titulo"><text x="20.00" y="64.00" font-family="Roboto" font-weight="500" font-size="21.168" text-anchor="start" fill="#000">Nombre Proyecto</text></g>
+<g id="imagen-principal">
+<rect x="20.00" y="76.00" width="239.40" height="250.00" fill="#c8c8c8"/>
+<text x="139.70" y="204.00" font-family="Roboto" font-weight="200" font-size="12.701" text-anchor="middle" fill="#000">[IMG]</text>
+<text x="20.00" y="330.50" font-family="Roboto" font-weight="400" font-size="3.175" text-anchor="start" fill="#000">Fig. 1 — Pie de foto.</text>
+</g>
+<g id="bajada"><text x="20.00" y="350.00" font-family="Roboto" font-weight="200" font-size="7.056" text-anchor="start" fill="#000">Una línea que sintetiza qué es el proyecto y para quién: artefacto o</text><text x="20.00" y="358.50" font-family="Roboto" font-weight="200" font-size="7.056" text-anchor="start" fill="#000">interfaz + usuario + situación de uso. Máximo dos líneas.</text></g>
+<line x1="20" y1="368" x2="259.4" y2="368" stroke="#000" stroke-width=".25"/>
+<text x="20.00" y="376.00" font-family="Roboto" font-weight="600" font-size="3.881" text-anchor="start" fill="#000">Qué</text>
+<g id="texto-que">
+<text x="101.80" y="376.00" font-family="Roboto" font-weight="400" font-size="3.881" text-anchor="start" fill="#000">[AQUÍ VA EL QUÉ] Lorem ipsum dolor sit amet, consectetur adipiscing elit,</text>
+<text x="101.80" y="381.43" font-family="Roboto" font-weight="400" font-size="3.881" text-anchor="start" fill="#000">sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim</text>
+<text x="101.80" y="386.87" font-family="Roboto" font-weight="400" font-size="3.881" text-anchor="start" fill="#000">ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip</text>
+<text x="101.80" y="392.30" font-family="Roboto" font-weight="400" font-size="3.881" text-anchor="start" fill="#000">ex ea commodo consequat. Duis aute irure dolor in reprehenderit in</text>
+<text x="101.80" y="397.73" font-family="Roboto" font-weight="400" font-size="3.881" text-anchor="start" fill="#000">voluptate velit esse cillum dolore eu fugiat nulla.</text>
+</g>
+<g id="pie-de-pagina">
+<line x1="20" y1="414" x2="259.4" y2="414" stroke="#000" stroke-width=".4"/>
+<text x="20.00" y="420.50" font-family="Roboto" font-weight="600" font-size="3.881" text-anchor="start" fill="#000">01 / 04</text>
+<text x="38.00" y="420.50" font-family="Roboto" font-weight="300" font-size="3.881" text-anchor="start" fill="#000">QUÉ</text>
+<text x="259.40" y="420.50" font-family="Roboto" font-weight="300" font-size="3.881" text-anchor="end" fill="#000">Nombre Proyecto</text>
+</g>
+</svg>

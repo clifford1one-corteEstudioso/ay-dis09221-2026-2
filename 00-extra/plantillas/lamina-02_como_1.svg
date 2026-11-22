@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="279.4mm" height="431.8mm" viewBox="0 0 279.4 431.8">
+<rect id="fondo" width="279.4" height="431.8" fill="#fff"/>
+<g id="encabezado">
+<text x="20.00" y="22.50" font-family="Roboto" font-weight="600" font-size="3.881" text-anchor="start" fill="#000">Nombre Apellido</text>
+<text x="20.00" y="29.00" font-family="Roboto" font-weight="600" font-size="3.881" text-anchor="start" fill="#000">Nombre Apellido</text>
+<text x="139.70" y="22.50" font-family="Roboto" font-weight="300" font-size="3.881" text-anchor="middle" fill="#000">Taller de Interacción Digital — encargo-05</text>
+<text x="139.70" y="29.00" font-family="Roboto" font-weight="300" font-size="3.881" text-anchor="middle" fill="#000">DIS09221_C07 — 2026-08-27</text>
+<text x="259.40" y="22.50" font-family="Roboto" font-weight="300" font-size="3.881" text-anchor="end" fill="#000">Carolina Pino, Felipe Roa</text>
+<text x="259.40" y="29.00" font-family="Roboto" font-weight="300" font-size="3.881" text-anchor="end" fill="#000">&amp;  Santiago Gaete</text>
+<line x1="20" y1="33" x2="259.4" y2="33" stroke="#000" stroke-width=".4"/>
+</g>
+<g id="titulo-seccion">
+<text x="20.00" y="56.00" font-family="Roboto" font-weight="500" font-size="14.112" text-anchor="start" fill="#000">Vista general</text>
+<text x="20.00" y="64.50" font-family="Roboto" font-weight="200" font-size="4.939" text-anchor="start" fill="#000">Cómo funciona: partes, uso e interacción.</text>
+</g>
+<g id="imagen-vista-general">
+<rect x="20.00" y="72.00" width="239.40" height="250.00" fill="#c8c8c8"/>
+<text x="139.70" y="200.00" font-family="Roboto" font-weight="200" font-size="12.701" text-anchor="middle" fill="#000">[IMG]</text>
+<text x="20.00" y="326.50" font-family="Roboto" font-weight="400" font-size="3.175" text-anchor="start" fill="#000">Fig. 2 — Axonometría / explosión / render.</text>
+</g>
+<line x1="20" y1="331" x2="259.4" y2="331" stroke="#000" stroke-width=".25"/>
+<g id="componentes"><text x="20.00" y="338.00" font-family="Roboto" font-weight="600" font-size="3.881" text-anchor="start" fill="#000">Componente A</text>
+<g id="texto-a">
+<text x="20.00" y="345.00" font-family="Roboto" font-weight="400" font-size="3.881" text-anchor="start" fill="#000">Lorem ipsum dolor sit amet,</text>
+<text x="20.00" y="350.43" font-family="Roboto" font-weight="400" font-size="3.881" text-anchor="start" fill="#000">consectetur adipiscing elit, sed do</text>
+<text x="20.00" y="355.87" font-family="Roboto" font-weight="400" font-size="3.881" text-anchor="start" fill="#000">eiusmod tempor incididunt ut labore</text>
+<text x="20.00" y="361.30" font-family="Roboto" font-weight="400" font-size="3.881" text-anchor="start" fill="#000">et dolore magna aliqua. Ut enim ad</text>
+<text x="20.00" y="366.73" font-family="Roboto" font-weight="400" font-size="3.881" text-anchor="start" fill="#000">minim veniam, quis nostrud</text>
+<text x="20.00" y="372.17" font-family="Roboto" font-weight="400" font-size="3.881" text-anchor="start" fill="#000">exercitation ullamco laboris nisi</text>
+<text x="20.00" y="377.60" font-family="Roboto" font-weight="400" font-size="3.881" text-anchor="start" fill="#000">ut aliquip ex ea commodo.</text>
+</g>
+<text x="101.80" y="338.00" font-family="Roboto" font-weight="600" font-size="3.881" text-anchor="start" fill="#000">Componente B</text>
+<g id="texto-b">
+<text x="101.80" y="345.00" font-family="Roboto" font-weight="400" font-size="3.881" text-anchor="start" fill="#000">Lorem ipsum dolor sit amet,</text>
+<text x="101.80" y="350.43" font-family="Roboto" font-weight="400" font-size="3.881" text-anchor="start" fill="#000">consectetur adipiscing elit, sed do</text>
+<text x="101.80" y="355.87" font-family="Roboto" font-weight="400" font-size="3.881" text-anchor="start" fill="#000">eiusmod tempor incididunt ut labore</text>
+<text x="101.80" y="361.30" font-family="Roboto" font-weight="400" font-size="3.881" text-anchor="start" fill="#000">et dolore magna aliqua. Ut enim ad</text>
+<text x="101.80" y="366.73" font-family="Roboto" font-weight="400" font-size="3.881" text-anchor="start" fill="#000">minim veniam, quis nostrud</text>
+<text x="101.80" y="372.17" font-family="Roboto" font-weight="400" font-size="3.881" text-anchor="start" fill="#000">exercitation ullamco laboris nisi</text>
+<text x="101.80" y="377.60" font-family="Roboto" font-weight="400" font-size="3.881" text-anchor="start" fill="#000">ut aliquip ex ea commodo.</text>
+</g>
+<text x="183.60" y="338.00" font-family="Roboto" font-weight="600" font-size="3.881" text-anchor="start" fill="#000">Componente C</text>
+<g id="texto-c">
+<text x="183.60" y="345.00" font-family="Roboto" font-weight="400" font-size="3.881" text-anchor="start" fill="#000">Lorem ipsum dolor sit amet,</text>
+<text x="183.60" y="350.43" font-family="Roboto" font-weight="400" font-size="3.881" text-anchor="start" fill="#000">consectetur adipiscing elit, sed do</text>
+<text x="183.60" y="355.87" font-family="Roboto" font-weight="400" font-size="3.881" text-anchor="start" fill="#000">eiusmod tempor incididunt ut labore</text>
+<text x="183.60" y="361.30" font-family="Roboto" font-weight="400" font-size="3.881" text-anchor="start" fill="#000">et dolore magna aliqua. Ut enim ad</text>
+<text x="183.60" y="366.73" font-family="Roboto" font-weight="400" font-size="3.881" text-anchor="start" fill="#000">minim veniam, quis nostrud</text>
+<text x="183.60" y="372.17" font-family="Roboto" font-weight="400" font-size="3.881" text-anchor="start" fill="#000">exercitation ullamco laboris nisi</text>
+<text x="183.60" y="377.60" font-family="Roboto" font-weight="400" font-size="3.881" text-anchor="start" fill="#000">ut aliquip ex ea commodo.</text>
+</g></g>
+<g id="pie-de-pagina">
+<line x1="20" y1="414" x2="259.4" y2="414" stroke="#000" stroke-width=".4"/>
+<text x="20.00" y="420.50" font-family="Roboto" font-weight="600" font-size="3.881" text-anchor="start" fill="#000">02 / 04</text>
+<text x="38.00" y="420.50" font-family="Roboto" font-weight="300" font-size="3.881" text-anchor="start" fill="#000">CÓMO</text>
+<text x="259.40" y="420.50" font-family="Roboto" font-weight="300" font-size="3.881" text-anchor="end" fill="#000">Nombre Proyecto</text>
+</g>
+</svg>

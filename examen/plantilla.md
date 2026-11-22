@@ -1,147 +1,248 @@
 # nombre-del-proyecto
 
+Una línea que sintetiza qué es el proyecto y para quién: artefacto o interfaz + usuario + situación de uso. Máximo dos líneas.
+
+![proyecto](./imagenes/proyecto.jpg)
+
 ## Acerca del proyecto
 
-- Grupo XX: nombre del grupo
+- **Grupo XX**
+- Curso: Taller 4: Problema y concepto, DIS09221_C07, 2026-2
+- Docentes: Carolina Pino y Felipe Roa
+- Ayudante: Santiago Gaete
+- Tema asignado: tema
+- Lugar asignado: lugar
 
-- Integrantes:
-  - Nombre Apellido / [usuario-github](https://github.com/usuario-github)
-  - Nombre Apellido / [usuario-github](https://github.com/usuario-github)
-  - Nombre Apellido / [usuario-github](https://github.com/usuario-github)
+### Integrantes
 
-## Licencia
+| Nombre | GitHub | Rol |
+| :--- | :--- | :--- |
+| Nombre Apellido | [usuario-github](https://github.com/usuario-github) | investigación |
+| Nombre Apellido | [usuario-github](https://github.com/usuario-github) | código y electrónica |
+| Nombre Apellido | [usuario-github](https://github.com/usuario-github) | diseño gráfico |
+| Nombre Apellido | [usuario-github](https://github.com/usuario-github) | prototipo |
 
-Esta obra y su documentación están bajo una [Licencia Creative Commons Atribución-CompartirIgual 4.0 Internacional](https://creativecommons.org/licenses/by-sa/4.0/).
+### Entregables
 
-© 2026 [Nombre Apellido, Nombre Apellido, Nombre Apellido]
+- [Video](https://youtube.com/)
+- [Ficha tabloide](./entregables/ficha-tabloide.pdf)
+- [Código](./entregables/codigo/)
+
+## Resumen
+
+Dos o tres líneas por cada punto.
+
+- **Problema**: qué problema u oportunidad abordamos.
+- **Metodología**: cómo investigamos, prototipamos y probamos.
+- **Resultado**: qué hicimos.
+- **Conclusiones**: qué aprendimos.
 
 ## Concepto
 
-Qué es el proyecto, qué problema aborda, para quién es y qué experiencia propone.
+**Concepto aplicado**: el concepto que hila todo el proyecto y cómo se ve en sus decisiones.
 
-## Bill of materials
+### Descripción
 
-| Componente | Cantidad | Link de compra |
-| :--- | :---: | ---: |
-| Arduino UNO R4 WiFi | 1 | https:// |
-| Componente | 1 | https:// |
-| Componente | 1 | https:// |
+Qué es el proyecto y qué experiencia propone.
 
-### Nombre del componente principal
+### Implementación
 
-Por qué elegimos este componente y qué rol cumple en el proyecto.
+Cómo se usa, paso a paso, desde que la persona lo ve hasta que se va.
 
-![componente](./imagenes/componente.jpg)
+- **Input**: qué recibe.
+- **Procesamiento**: qué decide.
+- **Output**: cómo responde.
 
-> Directamente desde [tienda](https://)
+### Fundamentación
 
-#### Características
+Qué nos motivó y por qué es relevante.
 
-- **Voltaje de funcionamiento** 5V
+### Persona Usuaria Objetivo
 
-- **Interfaz** digital / analógica / I2C
+Quién lo usa y en qué situación.
 
-- **Otra característica** ...
+## Contexto y problema
 
-## Código
+### Trabajo de campo
+
+Cuándo fuimos al lugar asignado, qué observamos, con quiénes hablamos y qué encontramos.
+
+![trabajo de campo](./imagenes/campo.jpg)
+
+### Problema u oportunidad
+
+Problemática identificada en un párrafo: qué pasa, dónde, a quién afecta y qué evidencia lo demuestra.
+
+### Objetivos
+
+Qué busca lograr el proyecto, en uno a tres puntos.
+
+### Objetivos de Desarrollo Sostenible
+
+- **[ODS X: nombre](https://www.un.org/sustainabledevelopment/es/sustainable-development-goals/)**. Relación con el proyecto.
+- **[ODS X: nombre](https://www.un.org/sustainabledevelopment/es/sustainable-development-goals/)**. Relación con el proyecto.
+
+## Sistema
+
+### Esquema general
+
+Actores, componentes y relaciones, igual que en la ficha tabloide.
+
+![esquema general](./imagenes/esquema-general.png)
+
+### Esquema electrónico (si aplica)
+
+![esquema electrónico](./imagenes/esquema-electronico.png)
+
+### Bill of materials
+
+Incluir también los materiales de fabricación y los equipos, como computador, cámara o proyector.
+
+| Componente | Valor o modelo | Cantidad | Precio unitario | Subtotal | Link de compra |
+| :--- | :--- | :---: | ---: | ---: | :--- |
+| ESP32 | modelo | 1 | $0 | $0 | https:// |
+| Componente | modelo | 1 | $0 | $0 | https:// |
+| Componente | modelo | 1 | $0 | $0 | https:// |
+| **Total** | | | | **$0** | |
+
+## Software
+
+### Qué corre dónde
+
+Dejar solo las filas que correspondan.
+
+| Parte | Dónde corre | Lenguaje o herramienta | Archivo |
+| :--- | :--- | :--- | :--- |
+| Sensores y actuadores | ESP32 | Arduino (C++) | [proyecto.ino](./codigo/proyecto/proyecto.ino) |
+| Reconocimiento de imagen | computador | Python | [main.py](./codigo/main.py) |
+| Interfaz | navegador | HTML, CSS, JS | [index.html](./codigo/index.html) |
+
+### Dependencias
+
+| Librería o programa | Versión | Para qué se usa |
+| --- | --- | --- |
+| ... | ... | ... |
+
+### Instalación y ejecución
+
+Los pasos para que alguien que no conoce el proyecto lo pueda hacer funcionar.
+
+1. Instalar ...
+2. Conectar ...
+3. Ejecutar ...
 
 ### Diagrama de flujo
 
 ```mermaid
 flowchart TD
-    A([Inicio]) --> B[Configurar pines]
-    B --> C{¿Sensor activado?}
-    C -- Sí --> D[Activar salida]
+    A([Inicio]) --> B[Preparar el sistema]
+    B --> C{¿Hay interacción?}
+    C -- Sí --> D[Responder]
     C -- No --> E[Esperar]
     D --> C
     E --> C
 ```
 
-### Esquema
+### Explicación del código
 
-![esquema](./imagenes/esquema.png)
+Elegir los 3 bloques más importantes. No pegar el código completo.
 
+<!-- junto a las comillas, cambiar txt por el lenguaje: cpp, python, js, etc. -->
+
+#### Bloque 1
+
+```txt
+fragmento de código
+```
+
+Qué hace y por qué está hecho así.
+
+#### Bloque 2
+
+```txt
+fragmento de código
+```
+
+Qué hace y por qué está hecho así.
+
+#### Bloque 3
+
+```txt
+fragmento de código
+```
+
+Qué hace y por qué está hecho así.
 
 ## Proceso
-
-### Referentes
-
-Proyectos o ejemplos que inspiraron el trabajo y qué tomamos de cada uno.
-
-![referente](./imagenes/referente.png)
-
-### Imágenes
-
-|  |  |  |
-|- | - | - |
-| ![proceso](./imagenes/proceso00.jpg) | ![proceso](./imagenes/proceso01.jpg) | ![proceso](./imagenes/proceso02.jpg) |
-| ![proceso](./imagenes/proceso03.jpg) | ![proceso](./imagenes/proceso04.jpg) | ![proceso](./imagenes/proceso05.jpg) |
 
 ### Etapa inicial
 
 Primeras ideas, lo que se descartó y por qué.
 
-### Pseudo código
+### Imágenes
 
-#### **Listado de pasos**
+|  |  |  |
+| - | - | - |
+| ![proceso](./imagenes/proceso00.jpg) | ![proceso](./imagenes/proceso01.jpg) | ![proceso](./imagenes/proceso02.jpg) |
+| ![proceso](./imagenes/proceso03.jpg) | ![proceso](./imagenes/proceso04.jpg) | ![proceso](./imagenes/proceso05.jpg) |
 
-1. Inicia el Arduino.
-2. ...
-3. ...
+## Resultado
 
-##### Situaciones que podrían entrar en conflicto
+Qué logramos y cómo responde al problema y al concepto.
 
-- ...
-
-#### Estados de la máquina
-
-1. **Estado 1**: qué ocurre.
-2. **Estado 2**: qué ocurre.
-
-#### Variables y arreglos
-
-```cpp
-// pines, variables y arreglos
-```
-
-##### Funciones
-
-- `nombreFuncion()`: qué hace.
-
-### Pruebas
-
-#### Prueba 01
-
-Qué se probó, qué funcionó y qué falló.
-
-```cpp
-// código de la prueba
-```
-
-[![video](./imagenes/vid01.png)](https://youtube.com/)
-
-#### Prueba 02
-
-...
-
-#### Resultado
-
-Código final del proyecto.
-
-```cpp
-// código final
-```
+| | |
+| - | - |
+| ![vista general](./imagenes/resultado00.jpg) | ![detalle](./imagenes/resultado01.jpg) |
+| ![en uso](./imagenes/resultado02.jpg) | ![montaje](./imagenes/resultado03.jpg) |
 
 [![video](./imagenes/vid-final.png)](https://youtube.com/)
 
+## Conclusiones
+
+### Distancia entre premisa y resultado
+
+En qué se parece y en qué se aleja el resultado de lo que planteamos al inicio.
+
+### Cosas no conseguidas
+
+Qué no se logró y por qué.
+
+### Descubrimientos al trabajar
+
+Qué aprendimos y qué haríamos a continuación.
 
 ## Uso de IA
 
-Conversaciones con IA usadas en el proyecto, en PDF:
+Declarar todo uso de IA. El grupo debe poder explicar cada línea del código que entrega.
 
-- [nombre-conversacion.pdf](./pdfs-ia/nombre-conversacion.pdf)
+| IA | Licencia | Problema a resolver | Qué usamos o descartamos |
+| :--- | :--- | :--- | :--- |
+| nombre | gratuita / pagada | ... | ... |
 
+### Prompts utilizados
 
-## Bibliografía
+#### Prompt 1
 
-- ...
+> acá va el prompt
+
+### Código entregado por IA
+
+- [archivo](./codigo/): qué líneas o funciones entregó la IA y qué les modificamos.
+
+## Referentes y bibliografía
+
+Citar también dentro del texto: (Apellido, año).
+
+### Referentes
+
+#### Nombre del referente
+
+Apellido, N. (año). *Título de la obra o proyecto*. Medio, lugar. <https://enlace.cl>
+
+Qué tomamos de este referente y en qué nos diferenciamos.
+
+![referente](./imagenes/referente.png)
+
+### Bibliografía
+
+- Apellido, N. (año). *Título del texto*. Editorial.
