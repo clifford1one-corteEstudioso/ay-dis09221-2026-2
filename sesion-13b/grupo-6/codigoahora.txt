@@ -1,0 +1,479 @@
+"""
+main12.py - Palomas + sensor de distancia + audio por comportamiento (Sin grabación)
+
+  * Audio por estado (detectado con YOLO):
+        ALETEO     -> suena aleteo.wav      (en bucle mientras dure el vuelo)
+        CAMINANDO  -> suena caminando.wav   (en bucle mientras caminan)
+        nada       -> SILENCIO
+  * Sensor de distancia (ESP32 por USB/serial): al detectar algo a <= 30 cm
+    pasa al siguiente video con una transición suave (crossfade) y transicion.wav.
+  * Teclas: ESPACIO/T = simular el sensor | D = modo debug | M = silenciar | Q/ESC = salir
+"""
+import os
+import re
+import sys
+import time
+import threading
+from collections import deque
+
+import cv2
+import numpy as np
+from ultralytics import YOLO
+
+try:
+    import serial
+except ImportError:
+    serial = None
+
+# ==============================================================================
+# CONFIGURACIÓN
+# ==============================================================================
+BASE = os.path.dirname(os.path.abspath(sys.argv[0]))
+
+
+def ruta(nombre):
+    return os.path.join(BASE, nombre)
+
+
+# --- Videos y sensor ---------------------------------------------------------
+LISTA_VIDEOS = ['paloma1.mp4', 'paloma2.mp4', 'paloma3.mp4', 'paloma4.mp4', 'paloma5.mp4']
+PUERTO_ESP32 = 'COM3'
+BAUDIOS = 115200
+DISTANCIA_CAMBIO_CM = 30.0
+HISTERESIS_CM = 10.0
+DURACION_TRANSICION_SEC = 1.5
+
+# --- Audios -------------------------------------------------------------------
+SONIDOS = {
+    'vuelo':      ('aleteo.wav',     1.0),
+    'camina':     ('caminando.wav',  1.0),
+    'transicion': ('transicion.wav', 1.0),
+}
+FADE_MS = 250
+
+# --- Detección YOLO -----------------------------------------------------------
+ANCHO_IA, ALTO_IA = 960, 540
+IMGSZ = 960
+CONF = 0.15
+SKIP_FRAMES = 2
+
+# --- Clasificación de Alta Precisión (Separación Estricta Vuelo/Camina) -------
+UMBRAL_ENERGIA_VUELO = 0.35    # Exige un cambio masivo de píxeles para detectar aleteo
+UMBRAL_VEL_VUELO = 0.30        # Exige desplazamiento rápido
+
+UMBRAL_ENERGIA_CAMINA = 0.05   # Movimientos leves en tierra
+UMBRAL_VEL_CAMINA = 0.04
+
+CAMINA_VENTANA = 5
+CAMINA_VOTOS = 3
+
+VUELO_VENTANA = 4              # Confirmación temporal para vuelo
+VUELO_VOTOS = 2
+
+RADIO_MATCH_NORM = 2.0
+HOLD_VUELO_SEC = 0.4
+HOLD_CAMINA_SEC = 0.6
+
+
+# ==============================================================================
+# 1. AUDIO
+# ==============================================================================
+class Audio:
+    def __init__(self):
+        self.ok = False
+        self.estado = 'silencio'
+        self.mute = False
+        self.sonidos = {}
+        self.canales = {}
+        try:
+            import pygame
+        except ImportError:
+            print("⚠️ Sin audio: falta pygame o pygame-ce. Instálalo con: pip install pygame-ce")
+            return
+        try:
+            pygame.mixer.init()
+            pygame.mixer.set_num_channels(8)
+        except Exception as e:
+            print(f"⚠️ Sin audio: no se pudo iniciar el mezclador ({e})")
+            return
+        self.pg = pygame
+        for i, (nombre, (archivo, vol)) in enumerate(SONIDOS.items()):
+            try:
+                s = pygame.mixer.Sound(ruta(archivo))
+                s.set_volume(vol)
+                self.sonidos[nombre] = s
+                self.canales[nombre] = pygame.mixer.Channel(i)
+                print(f"✓ Audio '{nombre}': {archivo}")
+            except Exception as e:
+                print(f"⚠️ No se pudo cargar '{archivo}' ({e})")
+        self.ok = bool(self.sonidos)
+
+    def set_estado(self, estado):
+        if self.mute:
+            estado = 'silencio'
+        if estado == self.estado:
+            return
+        self.estado = estado
+        for nombre in ('vuelo', 'camina'):
+            canal = self.canales.get(nombre)
+            if canal is None:
+                continue
+            if nombre == estado:
+                canal.play(self.sonidos[nombre], loops=-1, fade_ms=FADE_MS)
+            else:
+                canal.fadeout(FADE_MS)
+
+    def sonido_transicion(self):
+        if self.mute or 'transicion' not in self.sonidos:
+            return
+        self.canales['transicion'].play(self.sonidos['transicion'])
+
+    def alternar_mute(self):
+        self.mute = not self.mute
+        if self.mute:
+            self.set_estado('silencio')
+            if 'transicion' in self.canales:
+                self.canales['transicion'].stop()
+        return self.mute
+
+    def cerrar(self):
+        if self.ok:
+            self.pg.mixer.quit()
+
+
+# ==============================================================================
+# 2. SENSOR DE DISTANCIA
+# ==============================================================================
+distancia_actual = 200.0
+lock_distancia = threading.Lock()
+sensor_conectado = False
+
+
+def hilo_lectura_esp32():
+    global distancia_actual, sensor_conectado
+    if serial is None:
+        print("⚠️ Falta pyserial. Control manual con ESPACIO/'T'.")
+        return
+    try:
+        esp32 = serial.Serial(PUERTO_ESP32, BAUDIOS, timeout=0.1)
+    except Exception as e:
+        print(f"⚠️ ESP32 no detectado en {PUERTO_ESP32} ({e}). Control manual con ESPACIO/'T'.")
+        return
+    sensor_conectado = True
+    print(f"✓ ESP32 conectado en {PUERTO_ESP32}")
+
+    recientes = deque(maxlen=3)
+    buffer = ''
+    while True:
+        try:
+            if esp32.in_waiting > 0:
+                buffer += esp32.read(esp32.in_waiting).decode('utf-8', errors='ignore')
+                *lineas, buffer = buffer.split('\n')
+                for linea in lineas:
+                    m = re.search(r'\d+(?:\.\d+)?', linea)
+                    if not m:
+                        continue
+                    val = float(m.group())
+                    if 2.0 <= val <= 400.0:
+                        recientes.append(val)
+                        with lock_distancia:
+                            distancia_actual = float(np.median(recientes))
+        except Exception:
+            pass
+        time.sleep(0.01)
+
+
+threading.Thread(target=hilo_lectura_esp32, daemon=True).start()
+
+# ==============================================================================
+# 3. DETECCIÓN DE PALOMAS CON FILTRO ESTRICTO
+# ==============================================================================
+model = YOLO('yolov8n.pt')
+modo_debug = False
+
+
+class DetectorPalomas:
+    def __init__(self):
+        self.reset()
+
+    def reset(self):
+        self.prev_gray = None
+        self.prev_centros = []
+        self.boxes = []
+        self.hist_camina = deque(maxlen=CAMINA_VENTANA)
+        self.hist_vuelo = deque(maxlen=VUELO_VENTANA)
+        self.t_vuelo = 0.0
+        self.t_camina = 0.0
+
+    def actualizar(self, frame_720):
+        gray_blur = cv2.GaussianBlur(cv2.cvtColor(frame_720, cv2.COLOR_BGR2GRAY), (5, 5), 0)
+        frame_ia = cv2.resize(frame_720, (ANCHO_IA, ALTO_IA))
+        res = model.predict(frame_ia, imgsz=IMGSZ, conf=CONF, iou=0.45, classes=[14], verbose=False)[0]
+
+        sx, sy = 1280 / ANCHO_IA, 720 / ALTO_IA
+        nuevas, centros = [], []
+        hay_vuelo = hay_camina = False
+
+        if res.boxes is not None and len(res.boxes) > 0:
+            for box in res.boxes.xyxy.cpu().numpy():
+                x1 = max(0, int(box[0] * sx))
+                y1 = max(0, int(box[1] * sy))
+                x2 = min(1280, int(box[2] * sx))
+                y2 = min(720, int(box[3] * sy))
+                if x2 - x1 < 6 or y2 - y1 < 6:
+                    continue
+                cx, cy = (x1 + x2) / 2.0, (y1 + y2) / 2.0
+                ancho = x2 - x1
+
+                vel_norm = 0.0
+                if self.prev_centros:
+                    d = min(np.hypot(cx - px, cy - py) for px, py in self.prev_centros)
+                    if d <= RADIO_MATCH_NORM * ancho:
+                        vel_norm = d / ancho
+
+                energia = 0.0
+                if self.prev_gray is not None:
+                    a = self.prev_gray[y1:y2, x1:x2]
+                    b = gray_blur[y1:y2, x1:x2]
+                    if a.size > 0 and a.shape == b.shape:
+                        energia = float(np.mean(cv2.absdiff(a, b) > 35))
+
+                if energia > UMBRAL_ENERGIA_VUELO or vel_norm > UMBRAL_VEL_VUELO:
+                    tipo = 'vuelo'
+                    hay_vuelo = True
+                elif energia > UMBRAL_ENERGIA_CAMINA or vel_norm > UMBRAL_VEL_CAMINA:
+                    tipo = 'camina'
+                    hay_camina = True
+                else:
+                    tipo = 'quieta'
+
+                nuevas.append((x1, y1, x2, y2, tipo, energia, vel_norm))
+                centros.append((cx, cy))
+
+        ahora = time.time()
+        
+        self.hist_vuelo.append(hay_vuelo)
+        if sum(self.hist_vuelo) >= VUELO_VOTOS:
+            self.t_vuelo = ahora
+
+        self.hist_camina.append(hay_camina)
+        if sum(self.hist_camina) >= CAMINA_VOTOS:
+            self.t_camina = ahora
+
+        self.prev_gray = gray_blur
+        self.prev_centros = centros
+        self.boxes = nuevas
+
+    def estado(self):
+        ahora = time.time()
+        if ahora - self.t_vuelo < HOLD_VUELO_SEC:
+            return 'vuelo'
+        if ahora - self.t_camina < HOLD_CAMINA_SEC:
+            return 'camina'
+        return 'silencio'
+
+
+# ==============================================================================
+# 4. RENDER VISUAL
+# ==============================================================================
+def procesar_efecto_preciso_azul(frame_720, boxes_list):
+    gray = cv2.cvtColor(frame_720, cv2.COLOR_BGR2GRAY)
+    frame_out = cv2.cvtColor(gray, cv2.COLOR_GRAY2BGR)
+
+    for (x1, y1, x2, y2, tipo, energia, vel_norm) in boxes_list:
+        recorte = frame_720[y1:y2, x1:x2]
+        if recorte.size == 0:
+            continue
+
+        recorte_azul = cv2.applyColorMap(recorte, cv2.COLORMAP_WINTER)
+        recorte_gray = cv2.cvtColor(recorte, cv2.COLOR_BGR2GRAY)
+        _, mascara = cv2.threshold(recorte_gray, 30, 255, cv2.THRESH_BINARY)
+        mascara_inv = cv2.bitwise_not(mascara)
+
+        base_bn = cv2.cvtColor(recorte_gray, cv2.COLOR_GRAY2BGR)
+        paloma_fusionada = cv2.addWeighted(base_bn, 0.25, recorte_azul, 0.75, 0)
+
+        region_actual = frame_out[y1:y2, x1:x2]
+        bg = cv2.bitwise_and(region_actual, region_actual, mask=mascara_inv)
+        fg = cv2.bitwise_and(paloma_fusionada, paloma_fusionada, mask=mascara)
+        frame_out[y1:y2, x1:x2] = cv2.add(bg, fg)
+
+        if tipo == 'vuelo':
+            cv2.rectangle(frame_out, (x1, y1), (x2, y2), (255, 255, 0), 2)
+            cv2.putText(frame_out, "ALETEANDO", (x1, y1 - 6),
+                        cv2.FONT_HERSHEY_SIMPLEX, 0.45, (255, 255, 0), 2)
+        elif tipo == 'camina':
+            cv2.rectangle(frame_out, (x1, y1), (x2, y2), (0, 200, 255), 2)
+            cv2.putText(frame_out, "CAMINANDO", (x1, y1 - 6),
+                        cv2.FONT_HERSHEY_SIMPLEX, 0.45, (0, 200, 255), 2)
+        else:
+            cv2.rectangle(frame_out, (x1, y1), (x2, y2), (255, 180, 0), 1)
+
+        if modo_debug:
+            cv2.putText(frame_out, f"E:{energia:.2f} V:{vel_norm:.2f}", (x1, y2 + 16),
+                        cv2.FONT_HERSHEY_SIMPLEX, 0.45, (0, 255, 0), 1)
+
+    return frame_out
+
+
+def leer_frame(cap):
+    ret, frame = cap.read()
+    reinicio = False
+    if not ret:
+        cap.set(cv2.CAP_PROP_POS_FRAMES, 0)
+        ret, frame = cap.read()
+        reinicio = True
+    return ret, frame, reinicio
+
+
+# ==============================================================================
+# 5. INICIALIZACIÓN
+# ==============================================================================
+videos = []
+for v in LISTA_VIDEOS:
+    if os.path.exists(ruta(v)):
+        videos.append(v)
+    else:
+        print(f"⚠️ No encuentro '{v}' en {BASE} (se omite).")
+
+if not videos:
+    print("❌ No hay ningún video disponible.")
+    raise SystemExit(1)
+
+audio = Audio()
+
+idx_video_actual = 0
+cap_actual = cv2.VideoCapture(ruta(videos[idx_video_actual]))
+if not cap_actual.isOpened():
+    print(f"❌ No se pudo abrir '{videos[idx_video_actual]}'.")
+    raise SystemExit(1)
+fps_target = cap_actual.get(cv2.CAP_PROP_FPS) or 30.0
+
+det_actual = DetectorPalomas()
+cap_sig = None
+det_sig = None
+idx_video_sig = 0
+
+NOMBRE_VENTANA = "Plaza de Armas - Detección Precisa en Azul"
+cv2.namedWindow(NOMBRE_VENTANA, cv2.WINDOW_NORMAL)
+cv2.resizeWindow(NOMBRE_VENTANA, 1280, 720)
+
+en_transicion = False
+t_inicio_transicion = 0.0
+sensor_armado = True
+disparo_manual = False
+frame_counter = 0
+
+ETIQUETA_ESTADO = {'vuelo': 'ALETEO', 'camina': 'CAMINANDO', 'silencio': 'SILENCIO'}
+
+print("\n--- Sistema activo ---")
+print("• Teclas: ESPACIO/T = simular sensor | D = debug | M = silenciar | Q/ESC = salir\n")
+
+# ==============================================================================
+# 6. BUCLE PRINCIPAL
+# ==============================================================================
+try:
+    while True:
+        t_inicio = time.time()
+
+        with lock_distancia:
+            dist_actual = distancia_actual
+
+        if dist_actual >= DISTANCIA_CAMBIO_CM + HISTERESIS_CM:
+            sensor_armado = True
+        disparo = (dist_actual <= DISTANCIA_CAMBIO_CM and sensor_armado) or disparo_manual
+        disparo_manual = False
+
+        if disparo and not en_transicion and len(videos) > 1:
+            sensor_armado = False
+            idx_video_sig = (idx_video_actual + 1) % len(videos)
+            cap_nuevo = cv2.VideoCapture(ruta(videos[idx_video_sig]))
+            if cap_nuevo.isOpened():
+                cap_sig = cap_nuevo
+                det_sig = DetectorPalomas()
+                en_transicion = True
+                t_inicio_transicion = time.time()
+                audio.sonido_transicion()
+            else:
+                print(f"⚠️ No se pudo abrir '{videos[idx_video_sig]}'.")
+
+        ret_act, frame_act, reinicio = leer_frame(cap_actual)
+        if not ret_act:
+            print("❌ No se pudo leer el video actual.")
+            break
+        if reinicio:
+            det_actual.reset()
+        frame_720 = cv2.resize(frame_act, (1280, 720))
+
+        frame_sig_720 = None
+        if en_transicion:
+            ret_sig, frame_sig, reinicio_sig = leer_frame(cap_sig)
+            if ret_sig:
+                frame_sig_720 = cv2.resize(frame_sig, (1280, 720))
+                if reinicio_sig:
+                    det_sig.reset()
+
+        frame_counter += 1
+        if frame_counter % SKIP_FRAMES == 0:
+            det_actual.actualizar(frame_720)
+            if frame_sig_720 is not None:
+                det_sig.actualizar(frame_sig_720)
+
+        estado = det_actual.estado()
+        audio.set_estado(estado)
+
+        frame_render = procesar_efecto_preciso_azul(frame_720, det_actual.boxes)
+
+        if en_transicion:
+            if frame_sig_720 is not None:
+                frame_render_sig = procesar_efecto_preciso_azul(frame_sig_720, det_sig.boxes)
+                a = float(np.clip((time.time() - t_inicio_transicion) / DURACION_TRANSICION_SEC, 0.0, 1.0))
+                alfa = a * a * (3.0 - 2.0 * a)
+                frame_final = cv2.addWeighted(frame_render, 1.0 - alfa, frame_render_sig, alfa, 0)
+            else:
+                a = 1.0
+                frame_final = frame_render
+
+            if a >= 1.0:
+                cap_actual.release()
+                cap_actual, cap_sig = cap_sig, None
+                det_actual, det_sig = det_sig, None
+                idx_video_actual = idx_video_sig
+                fps_target = cap_actual.get(cv2.CAP_PROP_FPS) or fps_target
+                en_transicion = False
+        else:
+            frame_final = frame_render
+
+        # Texto UI
+        cv2.putText(frame_final, f"Video: {videos[idx_video_actual]} | Distancia: {dist_actual:.1f} cm"
+                    + ("" if sensor_conectado else " (sensor no conectado)"),
+                    (30, 40), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 255, 255), 2)
+        etiqueta = "MUTE" if audio.mute else ETIQUETA_ESTADO[estado]
+        color_estado = (0, 255, 0) if estado != 'silencio' and not audio.mute else (180, 180, 180)
+        cv2.putText(frame_final, f"AUDIO: {etiqueta}", (30, 75),
+                    cv2.FONT_HERSHEY_SIMPLEX, 0.6, color_estado, 2)
+        if en_transicion:
+            cv2.putText(frame_final, "TRANSICION...", (30, 105),
+                        cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 255), 2)
+
+        cv2.imshow(NOMBRE_VENTANA, frame_final)
+
+        t_espera = (1.0 / fps_target) - (time.time() - t_inicio)
+        if t_espera > 0:
+            time.sleep(t_espera)
+
+        key = cv2.waitKey(1) & 0xFF
+        if key == ord(' ') or key == ord('t'):
+            disparo_manual = True
+        elif key == ord('d'):
+            modo_debug = not modo_debug
+        elif key == ord('m'):
+            print("🔇 Audio silenciado" if audio.alternar_mute() else "🔊 Audio activado")
+        elif key == ord('q') or key == 27:
+            break
+finally:
+    cap_actual.release()
+    if cap_sig is not None:
+        cap_sig.release()
+    cv2.destroyAllWindows()
+    audio.cerrar()

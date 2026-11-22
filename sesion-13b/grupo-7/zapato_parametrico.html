@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Calzado paramétrico</title>
+<style>
+:root{--bg:#E8EDF0;--panel:#F7F9FA;--ink:#17252E;--mute:#5B6B75;--line:#C5D0D6;--acc:#2447E0;--grid:#B7C4CB}
+@media (prefers-color-scheme:dark){:root{--bg:#10181D;--panel:#17222A;--ink:#E6EDF1;--mute:#93A3AD;--line:#2B3A44;--acc:#7E96FF;--grid:#2B3A44}}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{font-family:"Avenir Next","Segoe UI",system-ui,sans-serif;background:var(--bg);color:var(--ink)}
+main{display:grid;grid-template-columns:1fr 330px;height:100%}
+#vista{position:relative;min-height:0;touch-action:none}
+#vista canvas{display:block}
+aside{background:var(--panel);border-left:1px solid var(--line);padding:24px 22px;overflow:auto}
+h1{font-size:1.25rem;margin:0 0 4px;font-weight:650}
+p.sub{margin:0 0 22px;color:var(--mute);font-size:.9rem;line-height:1.45}
+.ctl{margin-bottom:18px}
+.ctl label{display:flex;justify-content:space-between;font-size:.92rem;margin-bottom:6px}
+.ctl output{font-variant-numeric:tabular-nums;color:var(--acc);font-weight:600}
+input[type=range]{width:100%;accent-color:var(--acc)}
+.dato{border-top:1px solid var(--line);padding-top:14px;margin:6px 0 18px;font-size:.9rem;display:flex;justify-content:space-between}
+button{font:inherit;width:100%;padding:11px 14px;margin-bottom:10px;border-radius:6px;border:1px solid var(--acc);background:var(--acc);color:#fff;cursor:pointer}
+button.sec{background:transparent;color:var(--acc)}
+button:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+.nota{font-size:.8rem;color:var(--mute);line-height:1.45;margin-top:8px}
+@media (max-width:760px){main{grid-template-columns:1fr;grid-template-rows:55% 45%}aside{border-left:0;border-top:1px solid var(--line);padding:16px}}
+</style>
+</head>
+<body>
+<main>
+  <div id="vista" aria-label="Vista 3D del calzado"></div>
+  <aside>
+    <h1>Calzado paramétrico</h1>
+    <p class="sub">Mueve los controles y el modelo se regenera. Arrastra en la vista para girarlo.</p>
+    <div id="controles"></div>
+    <div class="dato"><span>Volumen de la suela</span><strong id="vol">-</strong></div>
+    <button id="bSuela">Exportar suela (STL)</button>
+    <button id="bHorma" class="sec">Exportar horma (STL)</button>
+    <p class="nota">Los STL salen en milímetros, con el eje Z hacia arriba. La horma es una superficie abierta: para imprimirla hay que darle espesor en tu software de slicing o de modelado.</p>
+  </aside>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+<script>
+/* ---------- Parámetros ---------- */
+const P = {largo:270, ancho:100, tacon:30, cana:80};
+const DEFS = [
+  ['largo','Largo del pie',200,320],
+  ['ancho','Ancho',70,130],
+  ['tacon','Alto del tacón',0,90],
+  ['cana','Alto de la horma',40,140]
+];
+
+/* ---------- Funciones paramétricas (u: 0 = puntera, 1 = talón) ---------- */
+const sm = (a,b,x)=>{const t=Math.min(1,Math.max(0,(x-a)/(b-a)));return t*t*(3-2*t)};
+const semiAncho = u => 0.5*P.ancho*Math.pow(Math.sin(Math.PI*(0.03+0.94*u)),0.42)
+                       *(1-0.16*Math.exp(-Math.pow((u-0.62)/0.13,2)));
+const grosor = u => 6 + P.tacon*sm(0.5,1,u);              // la suela es más gruesa en el talón
+const envolvente = u => (0.32+0.68*sm(0.05,0.8,u))*(1-0.12*sm(0.9,1,u));
+
+/* ---------- Geometría ---------- */
+const N = 48;
+const zDe = u => (u-0.5)*P.largo;
+
+function loft(rings, closed){
+  const t=[], n=rings[0].length;
+  for(let i=0;i<rings.length-1;i++){
+    for(let j=0;j<(closed?n:n-1);j++){
+      const k=(j+1)%n, a=rings[i][j], b=rings[i][k], c=rings[i+1][k], d=rings[i+1][j];
+      t.push([a,b,c],[a,c,d]);
+    }
+  }
+  return t;
+}
+function cerrar(tris, ring, invertir){
+  const c=ring.reduce((s,p)=>[s[0]+p[0],s[1]+p[1],s[2]+p[2]],[0,0,0]).map(v=>v/ring.length);
+  for(let j=0;j<ring.length;j++){
+    const a=ring[j], b=ring[(j+1)%ring.length];
+    tris.push(invertir?[c,b,a]:[c,a,b]);
+  }
+}
+function volumen(tris){
+  let v=0;
+  for(const [a,b,c] of tris)
+    v+=a[0]*(b[1]*c[2]-b[2]*c[1])-a[1]*(b[0]*c[2]-b[2]*c[0])+a[2]*(b[0]*c[1]-b[1]*c[0]);
+  return v/6;
+}
+function construirSuela(){
+  const K=14, rings=[];
+  for(let i=0;i<=N;i++){
+    const u=i/N, w=semiAncho(u), g=grosor(u), z=zDe(u), r=[];
+    for(let k=0;k<=K;k++){const s=-1+2*k/K; r.push([s*w,g,z]);}
+    for(let k=K;k>=0;k--){const s=-1+2*k/K; r.push([s*w,0,z]);}
+    rings.push(r);
+  }
+  const t=loft(rings,true);
+  cerrar(t,rings[0],false); cerrar(t,rings[N],true);
+  if(volumen(t)<0) t.forEach(f=>{const x=f[1];f[1]=f[2];f[2]=x;});   // corrige el sentido de las caras
+  return t;
+}
+function construirHorma(){
+  const M=18, rings=[];
+  for(let i=0;i<=N;i++){
+    const u=i/N, w=semiAncho(u)*0.96, g=grosor(u), h=P.cana*envolvente(u), z=zDe(u), r=[];
+    for(let m=0;m<=M;m++){const th=Math.PI*(1-m/M); r.push([Math.cos(th)*w, g+h*Math.sin(th), z]);}
+    rings.push(r);
+  }
+  return loft(rings,false);
+}
+
+/* ---------- Escena ---------- */
+const cont=document.getElementById('vista');
+const renderer=new THREE.WebGLRenderer({antialias:true,alpha:true});
+renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+cont.appendChild(renderer.domElement);
+const scene=new THREE.Scene();
+const cam=new THREE.PerspectiveCamera(35,1,1,3000);
+cam.position.set(330,170,230);
+const orbit=new THREE.OrbitControls(cam,renderer.domElement);
+orbit.target.set(0,35,0); orbit.enableDamping=true; orbit.update();
+scene.add(new THREE.HemisphereLight(0xffffff,0x778899,0.9));
+const sol=new THREE.DirectionalLight(0xffffff,0.8); sol.position.set(200,300,150); scene.add(sol);
+const grid=new THREE.GridHelper(500,25,0x8899a5,0xb7c4cb); grid.material.transparent=true; grid.material.opacity=0.5; scene.add(grid);
+
+const matSuela=new THREE.MeshStandardMaterial({color:0x2447E0,roughness:0.55,side:THREE.DoubleSide});
+const matHorma=new THREE.MeshStandardMaterial({color:0xDDE3E7,roughness:0.7,side:THREE.DoubleSide});
+const meshSuela=new THREE.Mesh(new THREE.BufferGeometry(),matSuela);
+const meshHorma=new THREE.Mesh(new THREE.BufferGeometry(),matHorma);
+scene.add(meshSuela,meshHorma);
+let trisSuela=[], trisHorma=[];
+
+function aGeometria(tris){
+  const arr=new Float32Array(tris.length*9); let o=0;
+  for(const f of tris) for(const p of f){arr[o++]=p[0];arr[o++]=p[1];arr[o++]=p[2];}
+  const g=new THREE.BufferGeometry();
+  g.setAttribute('position',new THREE.BufferAttribute(arr,3));
+  g.computeVertexNormals();
+  return g;
+}
+function regenerar(){
+  trisSuela=construirSuela(); trisHorma=construirHorma();
+  meshSuela.geometry.dispose(); meshHorma.geometry.dispose();
+  meshSuela.geometry=aGeometria(trisSuela); meshHorma.geometry=aGeometria(trisHorma);
+  document.getElementById('vol').textContent=(volumen(trisSuela)/1000).toFixed(0)+' cm³';
+}
+
+/* ---------- Controles ---------- */
+const caja=document.getElementById('controles');
+for(const [clave,nombre,min,max] of DEFS){
+  const d=document.createElement('div'); d.className='ctl';
+  d.innerHTML=`<label for="${clave}">${nombre}<output id="o_${clave}">${P[clave]} mm</output></label>
+    <input id="${clave}" type="range" min="${min}" max="${max}" step="1" value="${P[clave]}">`;
+  caja.appendChild(d);
+  d.querySelector('input').addEventListener('input',e=>{
+    P[clave]=+e.target.value;
+    document.getElementById('o_'+clave).textContent=P[clave]+' mm';
+    regenerar();
+  });
+}
+
+/* ---------- Exportar STL binario (mm, Z hacia arriba) ---------- */
+function exportarSTL(tris,nombre){
+  const buf=new ArrayBuffer(84+50*tris.length), dv=new DataView(buf);
+  dv.setUint32(80,tris.length,true);
+  let o=84;
+  const r=p=>[p[0],-p[2],p[1]];                       // Y arriba -> Z arriba
+  for(const f of tris){
+    const [a,b,c]=f.map(r);
+    const u=[b[0]-a[0],b[1]-a[1],b[2]-a[2]], v=[c[0]-a[0],c[1]-a[1],c[2]-a[2]];
+    let n=[u[1]*v[2]-u[2]*v[1],u[2]*v[0]-u[0]*v[2],u[0]*v[1]-u[1]*v[0]];
+    const l=Math.hypot(...n)||1; n=n.map(x=>x/l);
+    for(const val of [...n,...a,...b,...c]){dv.setFloat32(o,val,true);o+=4;}
+    o+=2;
+  }
+  const url=URL.createObjectURL(new Blob([buf],{type:'model/stl'}));
+  const l=document.createElement('a');
+  l.href=url; l.download=`${nombre}_L${P.largo}_A${P.ancho}_T${P.tacon}.stl`; l.click();
+  setTimeout(()=>URL.revokeObjectURL(url),1000);
+}
+document.getElementById('bSuela').onclick=()=>exportarSTL(trisSuela,'suela');
+document.getElementById('bHorma').onclick=()=>exportarSTL(trisHorma,'horma');
+
+/* ---------- Ciclo ---------- */
+function ajustar(){
+  const w=cont.clientWidth,h=cont.clientHeight;
+  renderer.setSize(w,h); cam.aspect=w/h; cam.updateProjectionMatrix();
+}
+addEventListener('resize',ajustar); ajustar();
+regenerar();
+(function loop(){requestAnimationFrame(loop);orbit.update();renderer.render(scene,cam);})();
+</script>
+</body>
+</html>

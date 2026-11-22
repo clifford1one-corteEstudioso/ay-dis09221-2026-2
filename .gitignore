@@ -1,0 +1,9 @@
+# entregas de estudiantes (el repo es publico)
+/encargos/encargo-11/entregas/
+
+# entregas y correo guardado: solo se publica el README
+/encargos/encargo-13/*
+!/encargos/encargo-13/README.md
+
+# supera el limite de 100 MiB de GitHub
+/sesion-13b/grupo-3/MemoriayCuerpo_py.zip
