@@ -28,15 +28,6 @@ Una línea que sintetiza qué es el proyecto y para quién: artefacto o interfaz
 - [Ficha tabloide](./entregables/ficha-tabloide.pdf)
 - [Código](./entregables/codigo/)
 
-## Resumen
-
-Dos o tres líneas por cada punto.
-
-- **Problema**: qué problema u oportunidad abordamos.
-- **Metodología**: cómo investigamos, prototipamos y probamos.
-- **Resultado**: qué hicimos.
-- **Conclusiones**: qué aprendimos.
-
 ## Concepto
 
 **Concepto aplicado**: el concepto que hila todo el proyecto y cómo se ve en sus decisiones.
@@ -113,23 +104,15 @@ Dejar solo las filas que correspondan.
 
 | Parte | Dónde corre | Lenguaje o herramienta | Archivo |
 | :--- | :--- | :--- | :--- |
-| Sensores y actuadores | ESP32 | Arduino (C++) | [proyecto.ino](./codigo/proyecto/proyecto.ino) |
-| Reconocimiento de imagen | computador | Python | [main.py](./codigo/main.py) |
-| Interfaz | navegador | HTML, CSS, JS | [index.html](./codigo/index.html) |
+| Sensores y actuadores | ESP32 | Arduino (C++) | [proyecto.ino](./entregables/codigo/proyecto/proyecto.ino) |
+| Reconocimiento de imagen | computador | Python | [main.py](./entregables/codigo/main.py) |
+| Interfaz | navegador | HTML, CSS, JS | [index.html](./entregables/codigo/index.html) |
 
 ### Dependencias
 
 | Librería o programa | Versión | Para qué se usa |
 | --- | --- | --- |
 | ... | ... | ... |
-
-### Instalación y ejecución
-
-Los pasos para que alguien que no conoce el proyecto lo pueda hacer funcionar.
-
-1. Instalar ...
-2. Conectar ...
-3. Ejecutar ...
 
 ### Diagrama de flujo
 
@@ -195,8 +178,6 @@ Qué logramos y cómo responde al problema y al concepto.
 | ![vista general](./imagenes/resultado00.jpg) | ![detalle](./imagenes/resultado01.jpg) |
 | ![en uso](./imagenes/resultado02.jpg) | ![montaje](./imagenes/resultado03.jpg) |
 
-[![video](./imagenes/vid-final.png)](https://youtube.com/)
-
 ## Conclusiones
 
 ### Distancia entre premisa y resultado
@@ -227,11 +208,9 @@ Declarar todo uso de IA. El grupo debe poder explicar cada línea del código qu
 
 ### Código entregado por IA
 
-- [archivo](./codigo/): qué líneas o funciones entregó la IA y qué les modificamos.
+- [archivo](./entregables/codigo/): qué líneas o funciones entregó la IA y qué les modificamos.
 
 ## Referentes y bibliografía
-
-Citar también dentro del texto: (Apellido, año).
 
 ### Referentes
 
